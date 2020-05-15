@@ -1,0 +1,13 @@
+pytorch=1.1.0=py3.6_cuda10.0.130_cudnn7.5.1_0
+torchvision=0.3.0=py36_cu10.0.130_1
+cudatoolkit=10.0.130=0
+tqdm=4.64.1=pyhd8ed1ab_0
+scipy=1.1.0=py36hfa4b5c9_1
+pandas=1.1.5=py36ha9443f7_0
+yacs=0.1.8=pyhd8ed1ab_0
+tensorboard=1.15.0=py36_0
+future=0.18.2=py36h5fab9bb_3
+gitpython=3.1.18=pyhd8ed1ab_0
+opencv=3.4.2=py36h6fd60c2_1
+matplotlib=3.3.4=py36h06a4308_0
+ipykernel=5.3.4=py36h5ca1d4c_0

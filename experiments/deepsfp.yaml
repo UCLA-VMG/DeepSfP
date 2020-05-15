@@ -1,0 +1,86 @@
+model:
+  blocks:
+    decoder:
+      activation:
+        inplace: true
+        name: LeakyReLU
+        negative_slope: 0.2
+      interp_mode: bilinear
+      kernel_size: 3
+      name: SfPDecoderBlock
+      normalization:
+        activation:
+          inplace: true
+          name: ReLU
+        interp_mode: bilinear
+        kernel_size: 3
+        mlp_inplanes: 4
+        name: SPADE
+        nhidden: 128
+        normalization:
+          affine: false
+          name: BatchNorm2d
+        padding: 1
+      padding: 1
+    encoder:
+      activation:
+        inplace: true
+        name: LeakyReLU
+        negative_slope: 0.1
+      kernel_size: 3
+      name: SfPEncoderBlock
+      normalization:
+        name: InstanceNorm2d
+      padding: 1
+    head:
+      activation:
+        inplace: true
+        name: LeakyReLU
+        negative_slope: 0.1
+      kernel_size: 3
+      name: SfPHeadBlock
+      normalization:
+        name: BatchNorm2d
+      padding: 1
+  initializer:
+    name: xavier_normal_
+  name: SfPNet
+test:
+  crop:
+    enable: true
+    gap_length: 8
+    patch_size: 256
+    roll_length: 256
+  metric:
+    mask_flag: true
+    name: MeanAngularError
+train:
+  dataloader:
+    dataset:
+      name: SurfaceNormals
+      root: data
+      transforms:
+        RandomCrop:
+          crop_size:
+          - 256
+          - 256
+          dataset_dir: data/SurfaceNormals
+          foreground_ratio_threshold: 0.4
+  loss:
+    mask_flag: true
+    name: CosineEmbeddingLoss
+    reduction: sum
+  lr_scheduler:
+    factor: 0.9
+    mode: min
+    name: ReduceLROnPlateau
+    patience: 10
+    threshold: 0.001
+    verbose: true
+  metric:
+    mask_flag: true
+    name: MeanAngularError
+  optimizer:
+    lr: 0.01
+    name: Adam
+    weight_decay: 0.0001
